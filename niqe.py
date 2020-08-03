@@ -5,9 +5,7 @@ from os.path import dirname
 from os.path import join
 import scipy
 from PIL import Image
-import numpy as np
 import scipy.ndimage
-import numpy as np
 import scipy.special
 import math
 
@@ -169,8 +167,9 @@ def _get_patches_generic(img, patch_size, is_train, stride):
         img = img[:, :-woffset]
 
 
-    img = img.astype(np.float32)
-    img2 = scipy.misc.imresize(img, 0.5, interp='bicubic', mode='F')
+    # img = img.astype(np.float32)
+    # img2 = scipy.misc.imresize(img, 0.5, interp='bicubic', mode='F')
+    img2 = np.array(Image.fromarray(img).resize((w//2, h//2)))
 
     mscn1, var, mu = compute_image_mscn_transform(img)
     mscn1 = mscn1.astype(np.float32)
